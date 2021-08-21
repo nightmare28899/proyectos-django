@@ -1,0 +1,10 @@
+/* No CSS */
+.form-control-feedback {
+    position: absolute;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.form-control {
+    padding-left: 30px!important;
+}
