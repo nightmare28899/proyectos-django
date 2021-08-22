@@ -68,7 +68,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{%url 'index'%}">Edu Moocs</a>
             <form class="d-flex">
-                <div class="form-group has-feedback col-sm-none" style="margin-left: 240px;">
+                <div class="form-group has-feedback d-none d-xs-block" style="margin-left: 240px;">
                     <i class="fas fa-search form-control-feedback"></i>
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"
                         style="border-radius: 25px;">
@@ -82,6 +82,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex">
+                    <div class="form-group has-feedback">
+                        <i class="fas fa-search form-control-feedback"></i>
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"
+                            style="border-radius: 25px;">
+                    </div>
+    
+                    <!-- <button class="btn btn-outline-success" type="submit">Buscar</button> -->
+                </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-right: 15px;">
                         <a class="nav-link active" aria-current="page" href="{%url 'index'%}">Inicio</a>
