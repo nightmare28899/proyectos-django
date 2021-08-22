@@ -1,0 +1,55 @@
+{% extends "contenido/encabezado.html" %}
+
+{% block titulo %} Login {%endblock%}
+
+{% block contenido%}
+    <style>
+        .contenedor{
+            width: 440px;
+            margin-top: 120px !important;
+        }
+    </style>
+    <br>
+    <br>
+    <div class="contenedor mx-auto mt-5 p-4 border border-dark shadow mb-5 bg-body rounded">
+        <div class="text-center">
+            {%load static%}
+            
+            <p>Bienvenido Registrate Maestro.</p>
+            <img src="{% static 'contenido/app/img/login.png'%}" width="140px" alt="">
+        </div>
+        <!-- Revisa si esta autenticado algun usuario-->
+        {% if user.is_authenticated %}
+         <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
+            <li> Ya estas registrado como: User: {{ user.get_username }}</li>
+            <form method="POST" action="{% url 'registroProfesorForm'%}">
+                {% csrf_token %}
+                <div class="mb-3 px-5 pt-3">
+                    <input type="text" class="form-control" id="username" name="username" value="{{ user.get_username }}">
+                  </div>
+                <div class="mb-3 px-5 pt-3">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre">
+                  </div>
+                <div class="mb-3 px-5">
+                  <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Introduce tu apellidos">
+                </div>
+                <div class="mb-3 px-5">
+                    <input type="text" class="form-control" id="materia" name="materia" placeholder="Introduce tu materia">
+                </div>
+                <div class="mb-3 px-5">
+                    <input type="number" class="form-control" id="edad" name="edad" placeholder="Introduce tu edad">
+                </div>
+                <div class="d-grid gap-2 px-5 pt-2">
+                    <button type="submit" class="btn btn-primary fs-5">Registrarse</button>
+                </div>
+    
+            </form>
+        {% else %}
+         <!--Si no esta autenticado, puede registrarse -->
+         <li> Autenticate para entrar</li>
+        
+        {% endif %} 
+
+       
+    </div>
+{%endblock%}

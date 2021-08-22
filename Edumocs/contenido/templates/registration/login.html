@@ -1,0 +1,75 @@
+
+{% extends "contenido/encabezado.html" %}
+
+{% block titulo %} Login {%endblock%}
+
+{% block contenido%}
+    <style>
+        .contenedor{
+            width: 440px;
+            margin-top: 120px !important;
+        }
+    </style>
+    <br>
+    <br>
+    <div class="contenedor mx-auto mt-5 p-4 border border-dark shadow mb-5 bg-body rounded">
+        <div class="text-center">
+            {%load static%}
+            <img src="{% static 'contenido/app/img/login.png'%}" width="140px" alt="">
+        </div>
+        <!-- Si existe un error en el form o en los datos regresa el siguiente mensaje-->
+        {% if form.errors %}
+            <p>Su contraseña o usuario estan equivocados, intente nuevamente.</p>
+
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3 px-5 pt-3">
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>              
+                </div>
+                <div class="mb-3 px-5">
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </div>
+                <div class="d-grid gap-2 px-5 pt-2">
+                    <button type="submit" class="btn btn-primary fs-5">Iniciar Sesión</button>
+                </div>
+                <div class="d-grid gap-2 px-5 mt-2">
+                    <!-- manda a la pagina registroUsuarioForm que revisara que todo este correcto, en caso de serlo  regresara al index logeado-->
+                    <a class="btn btn-outline-primary fs-6" href="{% url 'registroUsuarioForm'%}" role="button">Registrate</a>
+                    <a href="#" class=" mt-2 text-center text-primary">¿Olvidaste tu contraseña?</a>
+                </div>
+    
+            </form>
+        {% endif %}
+
+        {% if next %}
+            <!--Si el usuario se identifico correctamente pero aun asi regresa al login por algun error o intencionalmente, le dira que esta logeado-->
+            {% if user.is_authenticated %}
+                <p>Ya estas regsitrado como {{ user.get_username }}.</p>
+            <!--Si el usuario no esta logeado podra accesar-->
+            {% else %}
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3 px-5 pt-3">
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>              
+                </div>
+                <div class="mb-3 px-5">
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </div>
+                <div class="d-grid gap-2 px-5 pt-2">
+                    <button type="submit" class="btn btn-primary fs-5">Iniciar Sesión</button>
+                </div>
+                <div class="d-grid gap-2 px-5 mt-2">
+                    <a class="btn btn-outline-primary fs-6" href="{% url 'registroUsuarioForm'%}" role="button">Registrate</a>
+                    <a href="#" class=" mt-2 text-center text-primary">¿Olvidaste tu contraseña?</a>
+                </div>
+    
+            </form>
+            {% endif %}
+        {% endif %}
+        
+    </div>
+{%endblock%}

@@ -6,11 +6,11 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class Profesores(models.Model):#Define la estructura de la tabla
     id = models.AutoField(primary_key=True, verbose_name='Clave Cursos')
+    username = models.TextField(null=True)
     nombre = models.TextField()  
     apellidos = models.TextField()
     materia = models.TextField()
     edad = models.IntegerField()
-    email = models.EmailField()  #campo de email
     created = models.DateTimeField(auto_now_add=True, verbose_name="Registro") 
     updated = models.DateTimeField(auto_now_add=True)
 
