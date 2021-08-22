@@ -59,7 +59,7 @@ ROOT_URLCONF = 'Edumocs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,3 +141,6 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
+
+
+LOGIN_REDIRECT_URL = '/'

@@ -1,42 +1,64 @@
-{% extends "inicio/encabezado.html" %} 
+{% extends "contenido/encabezado.html" %}
 
-{% block titulo %} Contacto {%endblock%}
+{% block titulo %} Login {%endblock%}
 
 {% block contenido%}
-<div class="card p-5 container">
-<div class="page-header">
-  <div class="page-title">
-    <h3>COMENTARIOS <small>Lista de Comentarios</small></h3>
-  </div>
-</div>
+    <style>
+        .contenedor{
+            width: 440px;
+            margin-top: 120px !important;
+        }
+    </style>
+    <br>
+    <br>
+    <div class="contenedor mx-auto mt-5 p-4 border border-dark shadow mb-5 bg-body rounded">
+        <div class="text-center">
+            {%load static%}
+        </div>
+        <!-- Revisa si esta autenticado algun usuario-->
+        {% if user.is_authenticated %}
+         <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
+         <p>Bienvenido {{ user.get_username }} , registre sus cursos.</p>
+            <form method="POST" action="{% url 'registroCursoForm'%}"  role="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3 px-5 pt-3">
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo del curso" >
+                  </div>
+                <div class="mb-3 px-5 pt-3">
+                    <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoria" >
+                  </div>
+                <div class="mb-3 px-5">
+                  <input type="number" class="form-control" id="duracion" name="duracion" placeholder="Duracion en Horas">
+                </div>
+                <div class="mb-3 px-5">
+                    <input type="text" class="form-control" id="lenguaje" name="lenguaje" placeholder="lenguaje">
+                </div>
+                <div class="mb-3 px-5">
+                    <textarea type="text" class="form-control" id="profesor" name="profesor">{{profesor.id}}</textarea>
+                </div>
+                <div class="mb-3 px-5 pt-3">
+                  <input type="text-area" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" >
+                </div>
+                <div class="mb-3 px-5 pt-3">
+                  <input type="text" class="form-control" id="lecciones" name="lecciones" >
+                </div>
+                <div class="mb-3 px-5 pt-3">
+                  <input type="number" class="form-control" id="precio" name="precio" >
+                </div>
+                <div class="mb-3 px-5 pt-3">
+                  <input type="file" class="form-control" id="imagen" name="imagen" >
+                </div>
+                <div class="d-grid gap-2 px-5 pt-2">
+                    <button type="submit" class="btn btn-primary fs-5">Registrarse</button>
+                </div>
+    
+            </form>
+        {% else %}
+         <!--Si no esta autenticado, puede registrarse -->
+         <li> Esta pagina esta restringida para maestros unicamente. </li>
+        
+        {% endif %} 
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Titulo</th>
-      <th>Categoria</th>
-      <th>Autor</th>
-      <th>Experiencia</th>
-      <th>Correo</th>
-      <th>Duracion</th>
-    </tr>
-  </thead>
-  CONSULTANDO CURSOS
-  <tbody>
-    {% for curso in cursos %}
-    <tr>
-      <td class="text-semibold"><img src="{{curso.imagen.url}}" alt="" class="img-media"></td>
-      <td class="text-semibold">{{curso.titulo}}</td>
-      <td class="muted">{{curso.categoria}}</td>
-      <td class="text-semibold">{{curso.autor}}</td>
-      <td class="muted">{{curso.experiencia}}</td>
-      <td class="text-semibold">{{curso.correo}}</td>
-      <td class="muted">{{curso.duracion}}</td>
-      <td class="text-center">Editar</td>
-      <td class="text-center">Eliminar</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
+       
+    </div>
 {%endblock%}
