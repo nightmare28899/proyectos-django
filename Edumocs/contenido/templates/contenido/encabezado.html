@@ -67,8 +67,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow p-3 mb-5 bg-body rounded">
         <div class="container-fluid">
             <a class="navbar-brand" href="{%url 'index'%}">Edu Moocs</a>
-            <form class="d-flex">
-                <div class="form-group has-feedback d-none d-xs-block" style="margin-left: 240px;">
+            <form class="d-flex" style="margin-left: 200px;">
+                <div class="form-group has-feedback d-none d-xs-block">
                     <i class="fas fa-search form-control-feedback"></i>
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"
                         style="border-radius: 25px;">
@@ -129,18 +129,22 @@
                     <li class="nav-item " style="margin-right: 25px;">
                         <a class="nav-link" href="{%url 'carrito'%}"><i class="fas fa-shopping-cart fa-lg"></i></a>
                     </li>
-
-                </ul>
-                <div class="nav-item">
                     <!--Si el usuario esta logeado, mandara su usuario y dara la opcion de deslogearse-->
                     {% if user.is_authenticated %}
-                        <li>User: {{ user.get_username }}</li>
-                        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+                    <li class="nav-item " style="margin-right: 25px;">
+                        <a class="nav-link text-uppercase">User: {{ user.get_username }}</a>
+                    </li>
+                    <li class="nav-item " style="margin-right: 25px;">
+                        <a class="btn btn-primary" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                    </li>
                     <!--Si el usuario no esta logeado, redirigira a la pagina de login-->
                     {% else %}
+                    <li class="nav-item " style="margin-right: 25px;">
                         <a class="btn btn-outline-primary fs-6" href="{% url 'login'%}?next={{request.path}}" role="button">Iniciar Sesión</a>
+                    </li>
                     {% endif %} 
-                </div>
+
+                </ul>
             </div>
         </div>
     </nav>

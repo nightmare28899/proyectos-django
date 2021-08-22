@@ -1,16 +1,16 @@
 {% extends "contenido/encabezado.html" %} {% block titulo %} Mis cursos
 {%endblock%} {% block contenido%}
 <style>
-  .card{
-      top: 0%;
-      left: 0%;
-      transform: translateX(0px);
-      transition: .8s all;
-      cursor: pointer;
+  .card {
+    top: 0%;
+    left: 0%;
+    transform: translateX(0px);
+    transition: 0.8s all;
+    cursor: pointer;
   }
   .card:hover {
-     box-shadow: 1px 1px 3px 3px #5F4B8BFF;
-     transform: translateY(10PX);
+    box-shadow: 1px 1px 3px 3px #5f4b8bff;
+    transform: translateY(10px);
   }
   .contenedor {
     width: 1200px;
@@ -24,62 +24,51 @@
 </style>
 <br />
 <div class="bg-secondary mt-5 pb-2 pt-3">
-  <div class="contenedor">
+  <div class="container">
     <h3 class="text-light fw-bold mt-4">Mis cursos como alumno</h3>
     <a href="#" class="text-light fs-6">Todos los cursos</a>
   </div>
 </div>
-<div class="contenedor mt-2 pt-2">
-  <div class="row mt-5">
+<div class="container mt-2 pt-2">
+  <div class="row mt-3">
     {% for curso in cursos %}
-    <div class="col-md-3">
-        
-        <div class="card">
-          <img
-            src="{{curso.imagen.url}}"
-            class="card-img-top img-fluid"
-            alt="curso-1"
-          /> 
-          <div class="card-body">
-            <h5 class="card-title">
-                {{curso.titulo}}
-            </h5>
-            <p class="card-text">
-               Categoria: {{curso.categoria}}
-            </p>
-            <p class="card-text">
-              Profesor: {{curso.profesor}}
-            </p>
-            <p class="card-text">
-              Descripcion: {{curso.descripcion}}
-            </p>
-            <p class="card-text">
-                Duración del curso: {{curso.duracion}}
-            </p>
-            <div class="progress" style="height: 14px">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                style="width: 25%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                25%
-              </div>
+    <div class="col-md-3 py-4">
+      <div class="card">
+        <img
+          src="{{curso.imagen.url}}"
+          class="card-img-top img-fluid"
+          alt="curso-1"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{curso.titulo}}</h5>
+          <p class="card-text">Categoria: {{curso.categoria}}</p>
+          <p class="card-text">Profesor: {{curso.profesor}}</p>
+          <p class="card-text">Descripcion: {{curso.descripcion}}</p>
+          <p class="card-text">Duración del curso: {{curso.duracion}}</p>
+          <div class="progress" style="height: 14px">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 25%"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              25%
             </div>
-            <a href="#" style="text-decoration: none; color: black">
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </a>
           </div>
+          <a href="#" style="text-decoration: none; color: black">
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+          </a>
         </div>
       </div>
-       {% endfor %}  
-</div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 {%endblock%}
