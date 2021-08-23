@@ -17,7 +17,7 @@
 <div class="bg-secondary mt-5 pb-2 pt-3">
   <div class="container">
     <h3 class="text-light fw-bold mt-4">Programación</h3> 
-    <a href="{%url 'todoscursos'%}" class="text-light fs-6">Todos los cursos</a>
+    <a href="{%url 'todoscursos'%}" class="text-light fs-6 text-decoration-none">Todos los cursos</a>
   </div>
 </div>
 <div class="container mt-2 pt-2">
@@ -63,7 +63,7 @@
     {% endfor %}
     {% else %}
     <!--Si no tiene cursos, entonces regresa el siguiente mensaje -->
-    <li> Por el momento no tenemos cursos registrados, espere noticias pronto. </li>
+    <h4 class="text-danger text-center"> Por el momento no tenemos cursos registrados, espere noticias pronto. </h4>
   {% endif %} 
   </div>
 </div>
