@@ -1,6 +1,6 @@
 {% extends "contenido/encabezado.html" %}
 
-{% block titulo %} Login {%endblock%}
+{% block titulo %} Login Profesor {%endblock%}
 
 {% block contenido%}
     <style>
@@ -15,17 +15,17 @@
         <div class="text-center">
             {%load static%}
             
-            <p>Bienvenido Registrate Maestro.</p>
+            <h2 class="text-info">Registrate Maestro.</h2>
             <img src="{% static 'contenido/app/img/login.png'%}" width="140px" alt="">
         </div>
         <!-- Revisa si esta autenticado algun usuario-->
         {% if user.is_authenticated %}
          <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
-            <li> Ya estas registrado como: User: {{ user.get_username }}</li>
+            <!-- <p class="text-center mt-2 text-success fw-bold"> Ya estas registrado como: User: {{ user.get_username }}</p> -->
             <form method="POST" action="{% url 'registroProfesorForm'%}">
                 {% csrf_token %}
-                <div class="mb-3 px-5 pt-3">
-                    <input type="text" class="form-control" id="username" name="username" value="{{ user.get_username }}">
+                <div class="mb-3 px-5 pt-2">
+                    <input type="hidden" class="form-control fw-bold" id="username" name="username" value="{{ user.get_username }}">
                   </div>
                 <div class="mb-3 px-5 pt-3">
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre">

@@ -4,54 +4,88 @@
 
 {% block contenido%}
     <style>
-        .contenedor{
-            width: 440px;
-            margin-top: 120px !important;
+        img{
+          width: 300px;
+        }
+        .without_ampm::-webkit-datetime-edit-ampm-field {
+          display: none;
+        }
+        input[type=time]::-webkit-clear-button {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -o-appearance: none;
+          -ms-appearance:none;
+          appearance: none;
+          margin: -10px; 
         }
     </style>
     <br>
     <br>
-    <div class="contenedor mx-auto mt-5 p-4 border border-dark shadow mb-5 bg-body rounded">
+    <div class="container mt-5 pt-5">
         <div class="text-center">
             {%load static%}
         </div>
         <!-- Revisa si esta autenticado algun usuario-->
         {% if user.is_authenticated %}
          <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
-         <p>Bienvenido {{ user.get_username }} , registre sus cursos.</p>
+         
             <form method="POST" action="{% url 'registroCursoForm'%}"  role="form" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="mb-3 px-5 pt-3">
+                <div class="border border-dark shadow p-5 mx-auto col-lg-6">
+               
+                <h1 class="text-center mb-4">Registre sus cursos.</h1>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <input type="file" id="imagen" name="imagen" class="form-control">
+                    <div class="col-lg-4">
+                      <div class="mt-3 img-fluid" id="preview"></div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
                     <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo del curso" >
                   </div>
-                <div class="mb-3 px-5 pt-3">
+                </div>  
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
                     <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoria" >
                   </div>
-                <div class="mb-3 px-5">
-                  <input type="number" class="form-control" id="duracion" name="duracion" placeholder="Duracion en Horas">
                 </div>
-                <div class="mb-3 px-5">
-                    <input type="text" class="form-control" id="lenguaje" name="lenguaje" placeholder="lenguaje">
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <input type="text" maxlength="8" onkeypress='validate(event)' class="form-control" id="duracion" name="duracion" placeholder="Duracion en Horas">
+                  </div>
                 </div>
-                <div class="mb-3 px-5">
-                    <textarea type="text" class="form-control" id="profesor" name="profesor">{{profesor.id}}</textarea>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                      <input type="text" class="form-control" id="lenguaje" name="lenguaje" placeholder="lenguaje">
+                  </div>
                 </div>
-                <div class="mb-3 px-5 pt-3">
-                  <input type="text-area" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" >
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                      <input type="hidden" class="form-control" id="profesor" name="profesor" value="{{profesor.id}}">
+                  </div>
                 </div>
-                <div class="mb-3 px-5 pt-3">
-                  <input type="text" class="form-control" id="lecciones" name="lecciones" >
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea type="text-area" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
+                  </div>
                 </div>
-                <div class="mb-3 px-5 pt-3">
-                  <input type="number" class="form-control" id="precio" name="precio" >
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea type="text" class="form-control" id="lecciones" name="lecciones" placeholder="Lecciones"></textarea>
+                  </div>
                 </div>
-                <div class="mb-3 px-5 pt-3">
-                  <input type="file" class="form-control" id="imagen" name="imagen" >
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio">
+                  </div>
                 </div>
-                <div class="d-grid gap-2 px-5 pt-2">
+                <div class="d-grid mt-4 mb-3">
                     <button type="submit" class="btn btn-primary fs-5">Registrarse</button>
                 </div>
-    
+              </div>
             </form>
         {% else %}
          <!--Si no esta autenticado, puede registrarse -->
@@ -61,4 +95,43 @@
 
        
     </div>
+    <script>
+      document.getElementById("imagen").onchange = function(e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+      
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+      
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function(){
+          let preview = document.getElementById('preview'),
+                  image = document.createElement('img');
+      
+          image.src = reader.result;
+      
+          preview.innerHTML = '';
+          preview.append(image);
+        };
+      }
+    </script>
+    <script>
+      function validate(evt) {
+        var theEvent = evt || window.event;
+      
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+        // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\:/;
+        if( !regex.test(key) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+      }
+    </script>
 {%endblock%}
