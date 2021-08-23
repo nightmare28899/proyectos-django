@@ -1,0 +1,137 @@
+{% extends "contenido/encabezado.html" %}
+
+{% block titulo %} Login {%endblock%}
+
+{% block contenido%}
+    <style>
+        img{
+          width: 300px;
+        }
+        .without_ampm::-webkit-datetime-edit-ampm-field {
+          display: none;
+        }
+        input[type=time]::-webkit-clear-button {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -o-appearance: none;
+          -ms-appearance:none;
+          appearance: none;
+          margin: -10px; 
+        }
+    </style>
+    <br>
+    <br>
+    <div class="container mt-5 pt-5">
+        <div class="text-center">
+            {%load static%}
+        </div>
+        <!-- Revisa si esta autenticado algun usuario-->
+        {% if user.is_authenticated %}
+         <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
+         
+            <form method="POST" action="{% url 'editarCursos' curso.id %}"  role="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="border border-dark shadow p-5 mx-auto col-lg-6">
+               
+                <h1 class="text-center mb-4">Edite su curso.</h1>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <input type="file" id="imagen" name="imagen" class="form-control">
+                    <div class="col-lg-4">
+                      <div class="mt-3 img-fluid" id="preview"></div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea name="titulo" rows="1" type="text" class="form-control">{{curso.titulo}}</textarea>
+                  </div>
+                </div>  
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea name="categoria" rows="1" type="text" class="form-control">{{curso.categoria}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea name="duracion" rows="1" type="text" class="form-control">{{curso.duracion}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea name="lenguaje" rows="1" type="text" class="form-control">{{curso.lenguaje}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                      <input type="hidden" class="form-control" id="profesor" name="profesor" value="{{profesor.id}}">
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea type="text-area" class="form-control" id="descripcion" name="descripcion">{{curso.descripcion}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea type="text" class="form-control" id="lecciones" name="lecciones">{{curso.lecciones}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="col-sm-12">
+                    <textarea name="precio" rows="1" type="text" class="form-control">{{curso.precio}}</textarea>
+                  </div>
+                </div>
+                <div class="d-grid mt-4 mb-3">
+                    <input type="submit" value="Enviar" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+        {% else %}
+         <!--Si no esta autenticado, puede registrarse -->
+         <li> Esta pagina esta restringida para maestros unicamente. </li>
+        
+        {% endif %} 
+
+       
+    </div>
+    <script>
+      document.getElementById("imagen").onchange = function(e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+      
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+      
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function(){
+          let preview = document.getElementById('preview'),
+                  image = document.createElement('img');
+      
+          image.src = reader.result;
+      
+          preview.innerHTML = '';
+          preview.append(image);
+        };
+      }
+    </script>
+    <script>
+      function validate(evt) {
+        var theEvent = evt || window.event;
+      
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+        // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\:/;
+        if( !regex.test(key) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+      }
+    </script>
+{%endblock%}

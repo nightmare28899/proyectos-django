@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Profesores(models.Model):#Define la estructura de la tabla
-    id = models.AutoField(primary_key=True, verbose_name='Clave Cursos')
+    id = models.AutoField(primary_key=True, verbose_name='Clave Profesor')
     username = models.TextField(null=True)
     nombre = models.TextField()  
     apellidos = models.TextField()
@@ -27,7 +27,7 @@ class Cursos(models.Model):
     id = models.AutoField(primary_key=True, verbose_name='ID')
     titulo = models.TextField(verbose_name="Nombre Curso")    
     categoria = models.CharField(max_length=50)
-    duracion = models.DurationField(verbose_name="Duracion en Horas")
+    duracion = models.IntegerField(verbose_name="Duracion en Horas")
     lenguaje = models.CharField(null=True, max_length=25)
     profesor = models.ForeignKey(Profesores, on_delete=models.CASCADE,verbose_name='Profesor')
     descripcion = RichTextField(null=True)
@@ -47,13 +47,14 @@ class Cursos(models.Model):
         #indica el nombre del alumno, no el objeto
 
 class Usuario(models.Model):#Define la estructura de la tabla
+    id = models.AutoField(primary_key=True, verbose_name='Clave Usuario')
+    username = models.TextField(null=True)
     nombre = models.TextField()  
     apellidos = models.TextField()
     edad = models.IntegerField()
-    email = models.EmailField()  #campo de email
-    curso = models.ForeignKey(Cursos, on_delete=models.CASCADE,verbose_name='Curso')
+    curso = models.ManyToManyField(Cursos, help_text="Seleccione los Cursos a cursar")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Registro") 
-    updated = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True) 
 
     class Meta:
         verbose_name = "Usuario"

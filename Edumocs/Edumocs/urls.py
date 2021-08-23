@@ -38,6 +38,9 @@ urlpatterns = [
     path('consulta/',views_registros.consultarDatosMaestro, name='consulta1'),
     path('registroCursos/',views_registros.formularioCursos, name='registroCurso'),
     path('registroCursosForm/',views_registros.registroCursos, name='registroCursoForm'),
+    path('editarCursosForm/<int:id>/',views_registros.editarCursosForm, name='editarCursosForm'),
+    path('editarCursos/<int:id>/',views_registros.editarCursos, name='editarCursos'),
+    path('eliminarCursos/<int:id>/',views_registros.eliminarCurso, name='eliminarCursos'),
     ]
 
 
