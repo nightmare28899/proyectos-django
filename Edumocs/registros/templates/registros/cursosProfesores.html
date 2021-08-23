@@ -12,30 +12,31 @@
      box-shadow: 1px 1px 3px 3px #5F4B8BFF;
      transform: translateY(10PX);
   }
-  .contenedor {
-    width: 1200px;
-    margin: 0 auto;
-  }
-  .acomodo {
-    position: absolute;
-    margin-left: 410px;
-    margin-top: 80px;
+  @media (max-width: 600px) and (min-width: 470px){
+    .centrado{
+      text-align: center;
+    }
   }
 </style>
 <br />
 <div class="bg-secondary mt-5 pb-2 pt-3">
-  <div class="contenedor">
-    <h3 class="text-light fw-bold mt-4">Mis cursos como profesor</h3>
-    <a class="btn btn-primary fs-6" href="{% url 'registroCurso'%}" role="button">Registrar Curso Nuevo</a>
+  <div class="container">
+    <div class="row centrado">
+      <div class="col-lg-6">
+        <h3 class="text-light fw-bold mt-4 ">Mis cursos como profesor</h3>
+      </div>
+      <div class="col-lg-2 offset-lg-4">
+        <a class="btn btn-primary fs-6 mt-4" href="{% url 'registroCurso'%}" role="button">Registrar Curso Nuevo</a>
+      </div>
+    </div>    
   </div>
 </div>
-<div class="contenedor mt-2 pt-2">
-  <div class="row mt-5">
+<div class="container mt-2 pt-2">
+  <div class="row mt-3">
    <!-- Revisa si existe cursos, si existe entonces devuelve sus cursos-->  
   {% if cursos %}
     {% for curso in cursos %}
-    <div class="col-md-3">
-        
+    <div class="col-md-3 py-4">
         <div class="card">
           <img
             src="{{curso.imagen.url}}"
@@ -60,8 +61,8 @@
             </p>
           
           <div>
-            <a class="btn btn-primary fs-6" href="{%url 'editarCursosForm' curso.id%}" role="button">Editar Curso </a>
-            <a class="btn btn-primary fs-6" href="{%url 'eliminarCursos' curso.id%}" role="button">Eliminar Curso</a>
+            <a class="btn btn-success fs-6" href="{%url 'editarCursosForm' curso.id%}" role="button">Editar Curso </a>
+            <a class="btn btn-danger fs-6" href="{%url 'eliminarCursos' curso.id%}" role="button">Eliminar Curso</a>
           </div>
             
           </div>
