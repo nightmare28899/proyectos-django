@@ -26,7 +26,7 @@ urlpatterns = [
     path('',views.index, name="index"),
     path('carrito/',views.carrito, name="carrito"),
     path('catalogo/',views_registros.catalogo, name="catalogo"),
-    path('cursos/', views_registros.cursos, name="Cursos"),
+    path('cursosdisponibles/', views_registros.cursos, name="Cursos"),
     path('login/',views.login, name="login"),
     #Django ofrece un sistema de login, aqui se agrega lo que ofrece el framework entre ellos el login que proporciona al menos en funciones
     path('accounts/', include('django.contrib.auth.urls')),
@@ -35,12 +35,15 @@ urlpatterns = [
     path('registroFormulario/',views_registros.registroForm, name='registroUsuarioForm'),
     path('registroProfesor/',views_registros.registroProfesores, name='registroProfesor'),
     path('registroProfesorForm/',views_registros.profesoresRegistro, name='registroProfesorForm'),
-    path('consulta/',views_registros.consultarDatosMaestro, name='consulta1'),
     path('registroCursos/',views_registros.formularioCursos, name='registroCurso'),
     path('registroCursosForm/',views_registros.registroCursos, name='registroCursoForm'),
     path('editarCursosForm/<int:id>/',views_registros.editarCursosForm, name='editarCursosForm'),
     path('editarCursos/<int:id>/',views_registros.editarCursos, name='editarCursos'),
     path('eliminarCursos/<int:id>/',views_registros.eliminarCurso, name='eliminarCursos'),
+    path('cursos/',views_registros.TodosCursos, name='todoscursos'),
+    path('cursos/desarrolloWeb/',views_registros.DesarrolloWeb, name='desarrolloWeb'),
+    path('cursos/marketing/',views_registros.Marketing, name='marketing'),
+    path('cursos/programacion/',views_registros.Programacion, name='programacion'),
     ]
 
 
