@@ -1,111 +1,113 @@
-{% extends "contenido/encabezado.html" %} 
-
-{% block titulo %} Catalogo {%endblock%} 
-
-{% block contenido%}
+{% extends "contenido/encabezado.html" %} {% block titulo %} Catalogo
+{%endblock%} {% block contenido%}
 
 <style>
-    .contenedor{
-        width: 800px;
-    }
-    .fa-star{
-        color: rgb(226, 168, 43);
-    }
+  .contenedor {
+    width: 800px;
+  }
+  .fa-star {
+    color: rgb(226, 168, 43);
+  }
 </style>
 <div class="container mt-5 pt-5">
-    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Desarrollo Web</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Programación</li>
-          <li class="breadcrumb-item active" aria-current="page">Python</li>
-        </ol>
-    </nav>
+  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="text-decoration-none text-dark" href="#">Desarrollo Web</a>
+      </li>
+      <li class="breadcrumb-item" aria-current="page">
+        <a class="text-decoration-none text-dark" href="#">Programación</a>
+      </li>
+      <li class="breadcrumb-item" aria-current="page">
+        <a class="text-decoration-none text-dark" href="#">Python</a>
+      </li>
+    </ol>
+  </nav>
 
-    <div class="row">
-      <div class="col-md-8">
-    {% for curso in cursos %}
-        <h3> {{curso.titulo}}</h3>
-       {% endfor %}  
-      <p>En este curso aprendera desde las bases para poder entender el lenguaje, el como se estructura y como funciona cada operador dentro de este lenguaje.</p>
-      <p>Así como cosas más avanzadas para poder desarrollar sitios web basados en python, juegos entre otras cosas.</p>
+  <div class="row">
+    <div class="col-md-8">
+      {% for curso in cursos %}
+      <h3>{{curso.titulo}}</h3>
+      {% endfor %}
+      <p>
+        En este curso aprendera desde las bases para poder entender el lenguaje,
+        el como se estructura y como funciona cada operador dentro de este
+        lenguaje.
+      </p>
+      <p>
+        Así como cosas más avanzadas para poder desarrollar sitios web basados
+        en python, juegos entre otras cosas.
+      </p>
       <p>Esperamos el curso sea de tu agrado y te animes a tomar lo</p>
       <div>
         <h3>¿Qué incluye este curso?</h3>
 
-        <div class="container border border-dark p-4 shadow p-3 mb-5 bg-body rounded mt-5">
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <ul>
-                      
-                            <li>Introducción.</li>
-                            <li>Fundamentos básicos de Programación.</li>
-                            <li>Condicionales.</li>
-                            <li>Interacción de Django con Javascript(Ajax,Ventanas, Modelos.</li>
-        
-                        
-                        
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    <ul>
-                      
-                            <li>Crear y Consumir EndPoint(RestAPI).</li>
-                            <li>Elaborar completo sistema de compra y facturación en Django.</li>
-                            <li>Deploy en Heroku.</li>
-                        
-                        
-                    </ul>
-                </div>
-            </div>            
-        </div>
-    </div>
-           
-    </div>
-      <div class="container-md col-xs-6 col-sm-6 col-md-4 col-lg-3">
-        <div class="card border border-dark shadow mb-5 bg-body rounded">
-          <img
-            src="{{curso.imagen.url}}"
-            class="card-img-top img-fluid"
-            alt="curso-1"
-          />
-          <div class="card-body">
-            <a href="#" style="text-decoration: none; color: black">
-                <h5>Calificación:
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-                </h5>
-           
-            </a>
-            <h5 class="card-title d-flex ">
-              Instructor: <p> Juan Perez Ortíz</p>
-            </h5>
-            <h5 class="card-text">
-              Online y a tu ritmo
-            </h5>
-            <h5 class="card-title d-flex ">
-                Audio: <p>Español</p>
-            </h5>
-            <h5 class="card-title d-flex ">
-                16 Lecciones (2h 31m)
-            </h5>
-            <h5 class="card-title d-flex ">
-                Costo: <p class="text-danger">$350MX</p>
-              </h5>
-           
-            <div class="d-grid gap-2 px-2 mt-2">
-                <button class="btn btn-success">Añadir al carrito</button>
-                <button class="btn btn-danger">Comprar</button>
+        <div class="container border border-dark p-4 shadow mb-5 bg-body rounded mt-5">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <ul>
+                <li>Introducción.</li>
+                <li>Fundamentos básicos de Programación.</li>
+                <li>Condicionales.</li>
+                <li>
+                  Interacción de Django con Javascript(Ajax,Ventanas, Modelos.
+                </li>
+              </ul>
             </div>
-            
+            <div class="col-xs-12 col-md-6">
+              <ul>
+                <li>Crear y Consumir EndPoint(RestAPI).</li>
+                <li>
+                  Elaborar completo sistema de compra y facturación en Django.
+                </li>
+                <li>Deploy en Heroku.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      
     </div>
-</div>
+    <div class="container-md col-xs-6 col-sm-6 col-md-4 col-lg-3">
+      <div class="card border border-dark shadow mb-5 bg-body rounded">
+        <img
+          src="{{curso.imagen.url}}"
+          class="card-img-top img-fluid"
+          alt="curso-1"
+        />
+        <div class="card-body">
+          <a href="#" style="text-decoration: none; color: black">
+            <h5>
+              Calificación:
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </h5>
+          </a>
+          <h5 class="card-title d-flex">
+            Instructor:
+            <p>Juan Perez Ortíz</p>
+          </h5>
+          <h5 class="card-text">Online y a tu ritmo</h5>
+          <h5 class="card-title d-flex">
+            Audio:
+            <p>Español</p>
+          </h5>
+          <h5 class="card-title d-flex">16 Lecciones (2h 31m)</h5>
+          <h5 class="card-title d-flex">
+            Costo:
+            <p class="text-danger">$350MX</p>
+          </h5>
 
+          <div class="d-grid gap-2 px-2 mt-2">
+            <button class="btn btn-success">Añadir al carrito</button>
+            <button class="btn btn-danger">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {%endblock%}
