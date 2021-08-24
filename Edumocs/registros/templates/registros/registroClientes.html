@@ -15,7 +15,7 @@
         <div class="text-center">
             {%load static%}
             
-            <p>Bienvenido {{ user.get_username }}, es necesario llenar estos campos para complementar tu experiencia.</p>
+            <h4 class="text-center text-primary">Bienvenido <br> {{ user.get_username }} Es necesario llenar estos campos para complementar tu experiencia.</h4>
             <img src="{% static 'contenido/app/img/login.png'%}" width="140px" alt="">
         </div>
         <!-- Revisa si esta autenticado algun usuario-->
@@ -46,7 +46,7 @@
             </form>
         {% else %}
          <!--Si no esta autenticado, puede registrarse -->
-         <li> Autenticate para entrar.</li>
+         <h4 class="text-center text-danger"> Autenticate para entrar.</h4>
         
         {% endif %} 
 
