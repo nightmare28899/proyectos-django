@@ -10,4 +10,4 @@ class ProfesoresForm(forms.ModelForm):
 class CursosForm(forms.ModelForm):
     class Meta:
         model = Cursos
-        fields = ['titulo','categoria','duracion','lenguaje','profesor','descripcion','lecciones','precio','imagen'] 
+        fields = ['titulo','categoria','duracion','lenguaje','profesor','descripcion','lecciones','precio','fecha_inicio','fecha_terminacion','imagen'] 

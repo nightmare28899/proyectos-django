@@ -44,6 +44,7 @@ urlpatterns = [
     path('cursos/desarrolloWeb/',views_registros.DesarrolloWeb, name='desarrolloWeb'),
     path('cursos/marketing/',views_registros.Marketing, name='marketing'),
     path('cursos/programacion/',views_registros.Programacion, name='programacion'),
+    path('cursos/<int:id>/',views_registros.cursosPlantilla, name='plantillaCursos'),
     ]
 
 

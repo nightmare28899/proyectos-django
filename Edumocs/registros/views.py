@@ -35,6 +35,10 @@ def cursos(request):
             return render(request,"registros/cursos.html",{'cursos':cursos})
         return render(request,"registros/cursos.html")
 
+def cursosPlantilla(request, id):
+    cursos=Cursos.objects.get(id=id)
+    return render(request,"registros/plantilla.html",{'cursos':cursos})
+
 def TodosCursos(request):
     cursos=Cursos.objects.all
     return render(request,"registros/TodosCursos.html",{'cursos':cursos})
