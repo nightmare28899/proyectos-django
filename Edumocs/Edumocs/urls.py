@@ -46,6 +46,8 @@ urlpatterns = [
     path('cursos/marketing/',views_registros.Marketing, name='marketing'),
     path('cursos/programacion/',views_registros.Programacion, name='programacion'),
     path('cursos/<int:id>/',views_registros.cursosPlantilla, name='plantillaCursos'),
+    path('registro/clientes/<int:id>/',views_registros.registroClientesForm,name='registroClientesForm'),
+    path('registroClientes/',views_registros.clientesRegistro, name='registroClientes'),
     ]
 
 

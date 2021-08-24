@@ -15,26 +15,28 @@
         <div class="text-center">
             {%load static%}
             
-            <p>Bienvenido, es necesario llenar estos campos para complementar tu experiencia.</p>
+            <p>Bienvenido {{ user.get_username }}, es necesario llenar estos campos para complementar tu experiencia.</p>
             <img src="{% static 'contenido/app/img/login.png'%}" width="140px" alt="">
         </div>
         <!-- Revisa si esta autenticado algun usuario-->
         {% if user.is_authenticated %}
          <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
-            <li> Ya estas registrado como: User: {{ user.get_username }}</li>
-            <form method="POST" action="{% url 'registroProfesorForm'%}">
+            <form method="POST" action="{% url 'registroClientes'%}">
                 {% csrf_token %}
                 <div class="mb-3 px-5 pt-3">
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ user.get_username }}">
-                  </div>
+                    <input type="hidden" class="form-control fw-bold" id="username" name="username" value="{{ user.get_username }}">
+                </div>
                 <div class="mb-3 px-5 pt-3">
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Introduce tu nombre">
-                  </div>
-                <div class="mb-3 px-5">
-                  <input type="text" class="form-control" id="edad" name="edad" placeholder="Introduce tu apellidos">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre">
+                </div>
+                <div class="mb-3 px-5 pt-3">
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Introduce tus apellidos">
                 </div>
                 <div class="mb-3 px-5">
-                    <input type="text" class="form-control" id="curso" name="curso" placeholder="Introduce tu materia">
+                  <input type="text" class="form-control" id="edad" name="edad" placeholder="Introduce tu edad">
+                </div>
+                <div class="mb-3 px-5">
+                    <input type="hidden" class="form-control fw-bold" id="curso" name="curso" value="{{ cursos.id }}">
                 </div>
             
                 <div class="d-grid gap-2 px-5 pt-2">
@@ -44,7 +46,7 @@
             </form>
         {% else %}
          <!--Si no esta autenticado, puede registrarse -->
-         <li> Autenticate para entrar</li>
+         <li> Autenticate para entrar.</li>
         
         {% endif %} 
 

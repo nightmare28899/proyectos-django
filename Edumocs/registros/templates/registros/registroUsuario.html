@@ -21,7 +21,7 @@
         <!-- Revisa si esta autenticado algun usuario-->
         {% if user.is_authenticated %}
          <!--Si esta autenticado, manda un mensaje de que ya inicio sesion -->
-            <li> Ya estas registrado como: User: {{ user.get_username }}</li>
+            <li> Ya estas registrado como: {{ user.get_username }}</li>
         {% else %}
          <!--Si no esta autenticado, puede registrarse -->
         <form method="POST" action="{% url 'registroUsuario'%}">

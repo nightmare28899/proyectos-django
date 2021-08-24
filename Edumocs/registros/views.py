@@ -7,6 +7,7 @@ from .models import Profesores
 from .models import Usuario
 from .forms import ProfesoresForm
 from .forms import CursosForm
+from .forms import UsuariosForm
 
 # Create your views here.
 # Pide que se este logeado para poder ingresar
@@ -29,8 +30,8 @@ def cursos(request):
     #si el usuario es del grupo usuario entonces entra a la pagina cursos alumno, con sus cursos
     else:
         if Usuario.objects.filter(username=username1).exists():
-            #a cursos se le esta asignando el valor de todos los cursos
-            cursos=Cursos.objects.all()
+            cliente=Usuario.objects.get(username=username1)
+            cursos=cliente.curso.all()
             #se regresa a la pagina HTML cursos
             return render(request,"registros/cursos.html",{'cursos':cursos})
         return render(request,"registros/cursos.html")
@@ -55,7 +56,6 @@ def Programacion(request):
     cursos=Cursos.objects.filter(categoria="Programacion")
     return render(request,"registros/Programacion.html",{'cursos':cursos})
     
-
 def editarCursosForm(request, id):
     username1=request.user.username
     profesor1=Profesores.objects.get(username=username1)
@@ -118,6 +118,17 @@ def login(request):
 def registroForm(request):
     return render(request,"registros/registroUsuario.html")
 
+def registroClientesForm(request, id):
+    username1=request.user.username
+    if Usuario.objects.filter(username=username1).exists():
+        cliente=Usuario.objects.get(username=username1)
+        cliente.curso.add(id)
+        cursos=cliente.curso.all()
+        return render(request,"registros/cursos.html",{'cursos':cursos})
+        
+    cursos=Cursos.objects.get(id=id)
+    return render(request,"registros/registroClientes.html",{'cursos':cursos})
+
 @login_required
 def registroProfesores(request):
     return render(request,"registros/registroMaestro.html")
@@ -148,3 +159,12 @@ def profesoresRegistro(request):
     return render(request,"registros/registroMaestro.html",{'form':form1}) 
 #ingresa los datos del crud
 
+def clientesRegistro(request):
+    if request.method == 'POST':
+        form1 = UsuariosForm(request.POST)
+        if form1.is_valid():#si los datos son correctos
+            form1.save()#inserta
+            return render(request,'contenido/index.html')
+    form1 = UsuariosForm()
+    #si algo sale mal se reenvia al formulariolos datos ingresados
+    return render(request,"registros/registroClientes.html",{'form':form1}) 
