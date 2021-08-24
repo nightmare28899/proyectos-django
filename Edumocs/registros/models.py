@@ -33,6 +33,8 @@ class Cursos(models.Model):
     descripcion = RichTextField(null=True)
     lecciones =  RichTextField(null=True)
     precio = models.DecimalField(null=True, max_digits=6, decimal_places=0,verbose_name="Costo")
+    fecha_inicio = models.DateField(null=True)
+    fecha_terminacion = models.DateField(null=True)
     imagen = models.ImageField(null=True,upload_to="media",verbose_name="Fotografía")
     created = models.DateTimeField(auto_now_add=True,verbose_name="Registro")
     updated = models.DateTimeField(auto_now_add=True)

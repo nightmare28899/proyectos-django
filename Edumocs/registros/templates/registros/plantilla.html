@@ -21,13 +21,11 @@
         </ol>
     </nav>
 
+    
     <div class="row">
       <div class="col-md-8">
-     
-      <h3>Curso Maestro de Python 3: Aprende Desde Cero</h3>
-      <p>En este curso aprendera desde las bases para poder entender el lenguaje, el como se estructura y como funciona cada operador dentro de este lenguaje.</p>
-      <p>Así como cosas más avanzadas para poder desarrollar sitios web basados en python, juegos entre otras cosas.</p>
-      <p>Esperamos el curso sea de tu agrado y te animes a tomar lo</p>
+      <h3> {{cursos.titulo}}</h3>
+      <p>{{cursos.descripcion}}</p>
       <div>
         <h3>¿Qué incluye este curso?</h3>
 
@@ -35,14 +33,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <ul>
-                      
-                            <li>Introducción.</li>
-                            <li>Fundamentos básicos de Programación.</li>
-                            <li>Condicionales.</li>
-                            <li>Interacción de Django con Javascript(Ajax,Ventanas, Modelos.</li>
-        
-                        
-                        
+                      {{cursos.lecciones}}
                     </ul>
                 </div>
                 <div class="col-md-6">
@@ -58,41 +49,27 @@
             </div>            
         </div>
     </div>
-           
+
     </div>
       <div class="col-md-4">
         <div class="card border border-dark shadow mb-5 bg-body rounded" style="width: 20rem">
           {%load static%}
-          <img
-            src="{% static 'contenido/app/img/python.jpg'%}"
-            class="card-img-top img-fluid"
-            alt="curso-1"
-          />
+          <img src="{{cursos.imagen.url}}" class="card-img-top img-fluid" alt="curso-1" />  
           <div class="card-body">
-            <a href="#" style="text-decoration: none; color: black">
-                <h5>Calificación:
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-                </h5>
-           
-            </a>
             <h5 class="card-title d-flex ">
-              Instructor: <p> Juan Perez Ortíz</p>
+              Instructor: <p> {{cursos.profesor.nombre}} {{cursos.profesor.apellidos}}  </p>
             </h5>
             <h5 class="card-text">
               Online y a tu ritmo
             </h5>
             <h5 class="card-title d-flex ">
-                Audio: <p>Español</p>
+                Audio: <p>{{cursos.lenguaje}}</p>
             </h5>
             <h5 class="card-title d-flex ">
-                16 Lecciones (2h 31m)
+             Duracion de: {{cursos.duracion}} Horas.
             </h5>
             <h5 class="card-title d-flex ">
-                Costo: <p class="text-danger">$350MX</p>
+                Costo: <p class="text-danger">{{cursos.precio}}</p>
               </h5>
            
             <div class="d-grid gap-2 px-2 mt-2">

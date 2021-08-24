@@ -1,16 +1,26 @@
 {% extends "contenido/encabezado.html" %} {% block titulo %} Mis cursos
 {%endblock%} {% block contenido%}
 <style>
-  .card {
-    top: 0%;
-    left: 0%;
-    transform: translateX(0px);
-    transition: 0.8s all;
-    cursor: pointer;
+  .card{
+      top: 0%;
+      left: 0%;
+      transform: translateX(0px);
+      transition: .8s all;
+      cursor: pointer;
   }
   .card:hover {
-    box-shadow: 1px 1px 3px 3px #5f4b8bff;
-    transform: translateY(10px);
+     box-shadow: 1px 1px 3px 3px #5F4B8BFF;
+     transform: translateY(10PX);
+  }
+  @media (max-width: 600px) and (min-width: 470px){
+    .centrado{
+      text-align: center;
+    }
+  }
+  a.custom-card,
+  a.custom-card:hover {
+    color: inherit;
+    text-decoration: none;
   }
 </style>
 <br />
@@ -22,10 +32,11 @@
 </div>
 <div class="container mt-2 pt-2">
   <div class="row mt-3">
-  <!-- Revisa si existe cursos, si existe entonces devuelve sus cursos-->
-  {% if cursos %}  
+  <!-- Revisa si existe cursos, si existe entonces devuelve sus cursos-->  
+  {% if cursos %}
     {% for curso in cursos %}
     <div class="col-md-3 py-4">
+      <a href="{%url 'plantillaCursos' curso.id %}" class="custom-card"> 
       <div class="card">
         <img
           src="{{curso.imagen.url}}"
@@ -33,12 +44,22 @@
           alt="curso-1"
         />
         <div class="card-body">
-          <h5 class="card-title">{{curso.titulo}}</h5>
-          <p class="card-text">Categoria: {{curso.categoria}}</p>
-          <p class="card-text">Profesor: {{curso.profesor}}</p>
-          <p class="card-text">Descripcion: {{curso.descripcion}}</p>
-          <p class="card-text">Duración del curso: {{curso.duracion}}</p>
-          <div class="progress" style="height: 14px">
+          <h5 class="card-title">
+              {{curso.titulo}}
+          </h5>
+          <p class="card-text">
+             Categoria: {{curso.categoria}}
+          </p>
+          <p class="card-text">
+            Profesor: {{curso.profesor}}
+          </p>
+          <p class="card-text">
+            Descripcion: {{curso.descripcion}}
+          </p>
+          <p class="card-text">
+              Duración del curso: {{curso.duracion}} Horas
+          </p>
+<!--           <div class="progress" style="height: 14px">
             <div
               class="progress-bar"
               role="progressbar"
@@ -56,15 +77,16 @@
             <i class="far fa-star"></i>
             <i class="far fa-star"></i>
             <i class="far fa-star"></i>
-          </a>
+          </a> -->
         </div>
       </div>
+    </a>
     </div>
     {% endfor %}
     {% else %}
     <!--Si no tiene cursos, entonces regresa el siguiente mensaje -->
     <h4 class="text-danger text-center"> Por el momento no tenemos cursos registrados, espere noticias pronto. </h4>
-  {% endif %} 
+  {% endif %}  
   </div>
 </div>
 
