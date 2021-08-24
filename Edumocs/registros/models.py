@@ -67,5 +67,10 @@ class Usuario(models.Model):#Define la estructura de la tabla
         return self.nombre
         #indica el nombre del alumno, no el objeto
 
-
-
+class Carrito(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name='Clave Usuario')
+    username = models.TextField(null=True)
+    curso = models.ManyToManyField(Cursos, help_text="Seleccione los Cursos a cursar")
+    total = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Registro") 
+   

@@ -5,9 +5,11 @@ from django.shortcuts import get_object_or_404
 from .models import Cursos 
 from .models import Profesores
 from .models import Usuario
+from .models import Carrito
 from .forms import ProfesoresForm
 from .forms import CursosForm
 from .forms import UsuariosForm
+from .forms import CarritoForm
 
 # Create your views here.
 # Pide que se este logeado para poder ingresar
@@ -98,6 +100,42 @@ def formularioCursos(request):
     profesor = Profesores.objects.get(username=username1)
     return render(request,"registros/registroCurso.html",{'profesor':profesor})
    
+def carrito(request, id):
+    username1=request.user.username
+    if Usuario.objects.filter(username=username1).exists():
+        #si existe el carrito con el username del usuario entra, si no crea su carrito
+        if Carrito.objects.filter(username=username1).exists():
+            #recupera el objeot carro
+            carro = Carrito.objects.get(username=username1)
+            #recupera el curso por el id recibido
+            curso = Cursos.objects.get(id=id)
+            #Se agrega el curso
+            carro.curso.add(id)
+            if curso in carro.curso.all():
+                #se extrae el total del curso
+                total = curso.precio
+                #se extra el total del carro
+                total_carro = carro.total
+                #se suma el total del carro con el total del curso
+                total_final = total + total_carro
+                #se actualiza el nuevo total con el curso añadido
+                carro.total = total_final
+                #se guarda el carro
+                carro.save()
+                return render(request,"registros/cursos.html")
+        #crea el carrito, se agrega el curso que se pidio
+        curso = Cursos.objects.get(id=id)
+        #se suma al total el curso
+        total = curso.precio
+        #se crea el carrito
+        instance = Carrito.objects.create(total=total,username=username1)
+        #se añade el curso al carrito
+        instance.curso.add(id)
+        return render(request,"registros/cursos.html")
+    cursos=Cursos.objects.get(id=id)
+    return render(request,"registros/registroClientes.html",{'cursos':cursos})
+
+
 def registroCursos(request):
     if request.method == 'POST':
         form = CursosForm(request.POST,request.FILES)
@@ -117,17 +155,6 @@ def login(request):
     
 def registroForm(request):
     return render(request,"registros/registroUsuario.html")
-
-def registroClientesForm(request, id):
-    username1=request.user.username
-    if Usuario.objects.filter(username=username1).exists():
-        cliente=Usuario.objects.get(username=username1)
-        cliente.curso.add(id)
-        cursos=cliente.curso.all()
-        return render(request,"registros/cursos.html",{'cursos':cursos})
-        
-    cursos=Cursos.objects.get(id=id)
-    return render(request,"registros/registroClientes.html",{'cursos':cursos})
 
 @login_required
 def registroProfesores(request):
@@ -168,3 +195,41 @@ def clientesRegistro(request):
     form1 = UsuariosForm()
     #si algo sale mal se reenvia al formulariolos datos ingresados
     return render(request,"registros/registroClientes.html",{'form':form1}) 
+
+def registroClientesForm(request, id):
+    #recupera el nombre de usuario
+    username1=request.user.username
+    #si el usuario esta registrado, agrega el curso a su lista de cursos
+    if Usuario.objects.filter(username=username1).exists():
+        #recupera al cliente
+        cliente=Usuario.objects.get(username=username1)
+        #agrega el curso
+        cliente.curso.add(id)
+        #regresa todos los cursos
+        cursos=cliente.curso.all()
+        return render(request,"registros/cursos.html",{'cursos':cursos})
+    #si no esta registrado lo manda a que termine su registro
+    cursos=Cursos.objects.get(id=id)
+    return render(request,"registros/registroClientes.html",{'cursos':cursos})
+
+@login_required
+def carritoView(request):
+    username1=request.user.username
+    if Carrito.objects.filter(username=username1).exists():
+        carro = Carrito.objects.get(username=username1)
+        cursos = carro.curso.all()
+        return render(request, "registros/carrito.html",{'cursos':cursos,'carro':carro})
+    return render(request,"registros/carrito.html")
+
+def pagar(request, id):
+    username1=request.user.username
+    carro = Carrito.objects.get(id=id)
+    curso = carro.curso.all()
+    cliente=Usuario.objects.get(username=username1)
+    cliente.curso.add(*curso)
+    curs = get_object_or_404(Carrito, id=id)
+    curs.delete()
+    return render(request,"registros/cursos.html")
+    # cliente.curso.add(curso)
+    
+    

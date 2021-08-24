@@ -24,7 +24,7 @@ from registros import views as views_registros
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name="index"),
-    path('carrito/',views.carrito, name="carrito"),
+    path('carrito/',views_registros.carritoView, name="carritoView"),
     path('acercade/',views.acercade, name="acercade"),
     path('catalogo/',views_registros.catalogo, name="catalogo"),
     path('cursosdisponibles/', views_registros.cursos, name="Cursos"),
@@ -48,6 +48,8 @@ urlpatterns = [
     path('cursos/<int:id>/',views_registros.cursosPlantilla, name='plantillaCursos'),
     path('registro/clientes/<int:id>/',views_registros.registroClientesForm,name='registroClientesForm'),
     path('registroClientes/',views_registros.clientesRegistro, name='registroClientes'),
+    path('carrito/<int:id>/',views_registros.carrito, name='carrito'),
+    path('pagar/<int:id>/',views_registros.pagar, name='pagar'),
     ]
 
 

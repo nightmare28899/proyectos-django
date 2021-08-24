@@ -18,8 +18,12 @@
     <a href="#" class="text-light fs-6 text-decoration-none">Compras</a>
   </div>
 </div>
+
 <div class="container">
   <div class="row">
+{% if cursos%} 
+  {% if carro%}
+    {% for curso in cursos %}
     <div class="col-md-8">
       <div class="border mt-5 col-xs-12 p-1">
         <div class="row">
@@ -27,29 +31,37 @@
             <div class="col-xs-3 col-lg-2 p-2">
               {%load static%}
               <img
-                src="{% static 'contenido/app/img/python.jpg'%}"
+                src="{{curso.imagen.url}}"
                 class="img-fluid"
                 alt="imagen-carrito"
               />
             </div>
             <div class="col-xs-4 d-flex">
-              <h5 class="fs-6 p-2">Curso de 0 a master en python, para desarrollo web.</h5>
+              <h5 class="fs-6 p-2">{{curso.titulo}}.</h5>
               <h5 class="text-success fs-6 p-2">Eliminar</h5>
-              <h4 class="text-danger p-2">$350MX</h4>
+              <h4 class="text-danger p-2">${{curso.precio}}</h4>
             </div>
           </div>
         </div>
       </div>
     </div>
+    {% endfor %}
     <div class="col-md-3 mt-2 pt-2">
       <h4 class="d-flex">Total:</h4>
-      <h1 class="fw-bold d-flex">$350MX</h1>
+      <h1 class="fw-bold d-flex">${{carro.total}}</h1>
       <div class="d-grid gap-2">
-        <button type="button" class="btn btn-danger text-light btn-lg">
-          Pagar
-        </button>
+        <a class="btn btn-success fs-6" href="{%url 'pagar' carro.id%}" role="button"> Pagar </a>
       </div>
+      {% else %}
+    <!--Si no esta autenticado, puede registrarse -->
+    <h4 class="text-danger text-center"> No tienes cursos en el Carrito. </h4>
+  {% endif %}
+  {% else %}
+    <!--Si no esta autenticado, puede registrarse -->
+    <h4 class="text-danger text-center"> No tienes cursos en el Carrito. </h4>
+  {% endif %}        
     </div>
   </div>
 </div>
+
 {%endblock%}
