@@ -5,11 +5,6 @@ from django.contrib.auth.decorators import login_required
 def index(request):
         return render(request,"contenido/index.html")
 
-def acercade(request):
-        return render(request, "contenido/acercade.html")
-#pide que se este logeado para poder acceder a esa vista.
-
-
 def catalogo(request):
         return render(request, "contenido/catalogo.html")
 

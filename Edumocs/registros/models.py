@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class Profesores(models.Model):#Define la estructura de la tabla
     id = models.AutoField(primary_key=True, verbose_name='Clave Profesor')
-    username = models.TextField(null=True)
+    username = models.TextField(null=True, verbose_name='User Profesor')
     nombre = models.TextField()  
     apellidos = models.TextField()
     materia = models.TextField()
@@ -24,7 +24,7 @@ class Profesores(models.Model):#Define la estructura de la tabla
         #indica el nombre del alumno, no el objeto
 
 class Cursos(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name='ID')
+    id = models.AutoField(primary_key=True, verbose_name='id Curso')
     titulo = models.TextField(verbose_name="Nombre Curso")    
     categoria = models.CharField(max_length=50)
     duracion = models.IntegerField(verbose_name="Duracion en Horas")
@@ -73,4 +73,28 @@ class Carrito(models.Model):
     curso = models.ManyToManyField(Cursos, help_text="Seleccione los Cursos a cursar")
     total = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True, verbose_name="Registro") 
+
+    class Meta:
+        verbose_name = "Carrito"
+        verbose_name_plural = "Carritos"
+        ordering = ["-created"]
+        #el menos indica que se ordena del mas reciente al mas viejo
+    def __str__(self):
+        return self.curso
+        #indica el nombre del alumno, no el objeto
+
+class Contacto(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name='Clave Usuario')
+    correo = models.EmailField(null=True)
+    asunto = models.TextField(null=True)
+    mensaje= models.TextField(null=True)
+
+    class Meta:
+        verbose_name = "Mensaje Contacto"
+        verbose_name_plural = "Mensajes Contactos"
+        #el menos indica que se ordena del mas reciente al mas viejo
+    def __str__(self):
+        return self.asunto
+        #indica el nombre del alumno, no el objeto
+
    

@@ -9,9 +9,36 @@ from .models import Carrito
 from .forms import ProfesoresForm
 from .forms import CursosForm
 from .forms import UsuariosForm
-from .forms import CarritoForm
+from .forms import ContactoForm
 
 # Create your views here.
+#el login required, pide que se este logeado para poder ingresar a la view, caso contrario redirige al login
+@login_required
+def carritoView(request):
+    username1=request.user.username
+    #si el objeto carro esta creado lo regresa con sus datos, caso contrario, solo redirige a la pagina  
+    if Carrito.objects.filter(username=username1).exists():
+        carro = Carrito.objects.get(username=username1)
+        #selecciona del obejto carro, el atributo curso ya que es un many to many
+        cursos = carro.curso.all()
+        #regresa los cursos y el objeto carro a la vista carrito, devolviendo asi sus datos
+        return render(request, "registros/carrito.html",{'cursos':cursos,'carro':carro})
+    return render(request,"registros/carrito.html")
+
+def acercade(request):
+        return render(request, "registros/acercade.html")
+
+def acercadeRegistro(request):
+    if request.method == 'POST':
+        form1 = ContactoForm(request.POST)
+        if form1.is_valid():#si los datos son correctos
+            form1.save()#inserta
+            return render(request,'registros/acercade.html')
+    form1 = ContactoForm()
+    #si algo sale mal se reenvia al formulariolos datos ingresados
+    return render(request,"registros/acercade.html",{'form':form1}) 
+
+
 # Pide que se este logeado para poder ingresar
 @login_required
 def cursos(request):
@@ -212,14 +239,6 @@ def registroClientesForm(request, id):
     cursos=Cursos.objects.get(id=id)
     return render(request,"registros/registroClientes.html",{'cursos':cursos})
 
-@login_required
-def carritoView(request):
-    username1=request.user.username
-    if Carrito.objects.filter(username=username1).exists():
-        carro = Carrito.objects.get(username=username1)
-        cursos = carro.curso.all()
-        return render(request, "registros/carrito.html",{'cursos':cursos,'carro':carro})
-    return render(request,"registros/carrito.html")
 
 def pagar(request, id):
     username1=request.user.username
