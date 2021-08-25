@@ -105,15 +105,17 @@ def editarCursos(request, id):
 
     return render(request,"registros/cursosEditarForm.html",{'curso':curso})
 
-def eliminarCurso(request, id):
+def eliminarCurso(request, id, confirmacion='registros/confirmarEliminacion.html'):
     #con el id pide la confirmacion para eliminar el objeto
     curs = get_object_or_404(Cursos, id=id)
-    curs.delete()
-    username1=request.user.username
-    profesor1=Profesores.objects.only('id').get(username=username1).id
+    if request.method=='POST':
+        curs.delete()
         #se filtran los cursos que tengan el nombre del profesor, mostrando unicamente sus cursos
-    cursos=Cursos.objects.filter(profesor=profesor1)
-    return render(request,"registros/cursosProfesores.html",{'cursos':cursos})
+        username1=request.user.username
+        profesor1=Profesores.objects.only('id').get(username=username1).id
+        cursos=Cursos.objects.filter(profesor=profesor1)
+        return render(request,"registros/cursosProfesores.html",{'cursos':cursos})
+    return render(request, confirmacion, {'object':curs})
 
 def catalogo(request):
     cursos=Cursos.objects.filter(titulo="Curso completo de Python 3 de la A a la Z - 2021 +50 horas!")
@@ -149,7 +151,9 @@ def carrito(request, id):
                 carro.total = total_final
                 #se guarda el carro
                 carro.save()
-                return render(request,"registros/cursos.html")
+                cliente=Usuario.objects.get(username=username1)
+                cursos=cliente.curso.all()
+                return render(request,"registros/cursos.html",{'cursos':cursos})
         #crea el carrito, se agrega el curso que se pidio
         curso = Cursos.objects.get(id=id)
         #se suma al total el curso

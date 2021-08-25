@@ -1,4 +1,4 @@
-{% extends "inicio/encabezado.html" %}
+{% extends "contenido/encabezado.html" %}
 
 {% block titulo%} ELIMINAR {%endblock%}
 
@@ -13,14 +13,19 @@
 {%endblock%}
 
 {% block contenido %}
+<div class="bg-secondary mt-5 pb-2 pt-3">
+    <div class="container">
+      <h3 class="text-light fw-bold mt-4">Advertencia</h3> 
+    </div>
+  </div>
     <form method="POST">
         {% csrf_token %}
         <!-- Alerta -->
         <div class="contenedor bg-light border border-dark p-5">
             <div class="text-center">
-                <h5 class="text-danger">Eliminando Comentario</h5>
+                <h5 class="text-danger">Eliminar Curso</h5>
                 <p>¿Estas seguro de que deseas <strong>Eliminar</strong> el 
-                comentario seleccionado?.</p>
+                curso seleccionado?.</p>
             </div>
             <!-- /Alerta -->
             <div class="text-center">
